@@ -1,0 +1,124 @@
+<html lang="en" data-color-mode="auto" data-light-theme="light" data-dark-theme="dark"> <head> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>body { text-align: center; font-family: "Trebuchet MS", Arial;}
+
+h1 {
+  border: 3px solid #fff;
+  border-radius: 30px;
+  background-color: #84946a;
+  color: #fff;
+  box-shadow: 0 0 20px rgba(0, 0, 0, .2);
+  margin: 4px;
+}
+input {
+  position: absolute;
+  top: -9999px;
+}
+.container {
+  position: relative;
+  width: 558;
+  height: 60;
+  border: 3px solid #fff;
+  border-radius: 30px;
+  background-color: #84946a;
+  box-shadow: 0 0 20px rgba(0, 0, 0, .2);
+}
+label {
+  display: block;
+  position: relative;
+  width: 45px;
+  margin: 4px;
+  padding: 10px 20px 10px 55px;
+  border: 3px solid #fff;
+  border-radius: 100px;
+  color: #fff;
+  background-color: #6a8494;
+  box-shadow: 0 0 20px rgba(0, 0, 0, .2);
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color .2s, box-shadow .2s;
+}
+
+label::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  left: 14px;
+  width: 24px;
+  border: 2px solid #fff;
+  border-radius: 50px;
+  transition: background-color .2s;
+}
+
+label:hover, input:focus + label {
+  box-shadow: 0 0 20px rgba(0, 0, 0, .6);
+}
+
+input:checked + label {
+  background-color: #ab576c;
+}
+
+input:checked + label::before {
+  background-color: #fff;
+}
+
+</style>
+<script>
+var i = 0;
+function loadIt(cb, time){
+if (cb.checked){
+  load(cb.value, time);
+  }
+else {
+  var theDiv = document.getElementById(cb.value);
+  clearInterval(theDiv.getAttribute("interval"));
+  theDiv.remove();
+  }
+}
+async function reLoad(value) {
+    document.getElementById(value).innerHTML = "<h4>Loading "+ value + " "+ i++ + "</h4>";
+}
+
+async function load(value, time){
+  const d = document.createElement("div");
+  d.setAttribute("id", value);
+  d.setAttribute("class", value);
+  d.innerHTML = "<h4>Loading "+ value +"....</h4>";
+  const currentDiv = document.getElementById("images");
+  currentDiv.appendChild(d);
+  var attrib = document.createAttribute("interval");
+  attrib.value = setInterval(reLoad.bind(null,value),time);
+  d.setAttributeNode(attrib);
+}  
+window.onload = function(){loadIt(document.getElementById("Graph1"),1000)};
+
+</script>
+</head><body><h1>Creation and removal of time intervals JS</h1>
+<div class="container">
+<table>
+<tr>
+<td>
+  <input id="Graph1" type="checkbox" checked onclick="loadIt(this, 1000)" value="sGraph">
+  <label for="Graph1">Seconds</label>
+</td>
+<td>
+  <input id="Graph2" type="checkbox" onclick="loadIt(this,5000)" value="mGraph">
+  <label for="Graph2">Minutes</label>
+</td>
+<td>
+  <input id="Graph3" type="checkbox" onclick="loadIt(this, 10000)" value="hGraph">
+  <label for="Graph3">Hours</label>
+</td>
+<td>  
+  <input id="Graph4" type="checkbox" onclick="loadIt(this, 20000)" value="dGraph">
+  <label for="Graph4">Days</label>
+</td>
+</tr>  
+</table>
+</div>
+<div id="images" class="images">
+
+</div>
+</body></html>
