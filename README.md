@@ -13,7 +13,7 @@ If an element in a checkbox is selected the related svg image is loaded and refr
 the load function checks if the item is active (e.g. loaded) and if actif will removes it otherwise create it by calling another function.
 
 Timers are created as follows:
-
+```
  const d = document.createElement("div"); // new div
   d.setAttribute("id", value); //assign id
   d.setAttribute("class", value); //assign class
@@ -24,3 +24,4 @@ Timers are created as follows:
   d.setAttributeNode(attrib); attache new attribute to new div element
   
 window.onload = function(){loadIt(document.getElementById("Graph1"),1000)}; // will load the first image at start up  
+```
